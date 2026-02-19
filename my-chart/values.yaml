@@ -1,0 +1,45 @@
+# Default values for my-chart
+
+replicaCount: 1  # Number of main application replicas
+
+image:
+  repository: nginx
+  tag: "1.25.3"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP  # Kubernetes service type
+  port: 80         # Service port
+
+persistence:
+  enabled: true        # Enable persistent storage
+  accessMode: ReadWriteOnce
+  size: 8Gi
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "250m"
+    memory: "256Mi"
+
+securityContext:
+  runAsUser: 1000
+  fsGroup: 2000
+
+ha:
+  enabled: true  # Enable high availability mode
+
+  controller:
+    replicas: 2  # Number of replicas for failover controller
+    image:
+      repository: busybox
+      tag: "1.36"
+    resources:
+      limits:
+        cpu: "200m"
+        memory: "256Mi"
+      requests:
+        cpu: "100m"
+        memory: "128Mi"
