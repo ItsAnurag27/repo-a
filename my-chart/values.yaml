@@ -43,3 +43,18 @@ ha:
       requests:
         cpu: "100m"
         memory: "128Mi"
+ha-proxy:
+  enabled: true  # Enable high availability mode
+
+  controller:
+    replicas: 2  # Number of replicas for failover controller
+    image:
+      repository: busybox
+      tag: "1.36"
+    resources:
+      limits:
+        cpu: "200m"
+        memory: "256Mi"
+      requests:
+        cpu: "100m"
+        memory: "128Mi"
